@@ -1,0 +1,15 @@
+.login button:hover{
+    border:2px solid white;
+    outline:2px solid white;
+    background-color: black;
+    color: white;
+
+  }
+
+.signin button:hover{
+  border:2px solid white;
+  outline:2px solid white;
+  background-color: black;
+  color: white;
+
+}
