@@ -5,12 +5,13 @@ import { usercontext } from "./usecontext_imp_router";
 
 function A() {
   // ALL USESTATES
-  var Symboll="<"
-  var Symbolr=">"
+  var Symboll = "«";
+  var Symbolr = "«";
   const {
     productcategory,
     setproductcategory,
     searchstate,
+    setproductname,
     setsearchstate,
     fetched_tablenames,
     setfetched_tablenames,
@@ -21,54 +22,67 @@ function A() {
   const [all, setall] = useState([]);
   const [empty, setempty] = useState(false);
   const [low, setlow] = useState(0);
-  const [high, sethigh] = useState(4);
+  const [high, sethigh] = useState(8);
   const [error, seterror] = useState("false");
-  const [sliders,setsliders]=useState([]);
+  const [sliders, setsliders] = useState([]);
   // const [kids,setkids]=useState([1,2,3,4,5,6])
   const [skeleton, setskeleton] = useState([
-    [1, 2, 3, 4, 5],
-    [6, 7, 8, 9, 10],
-    [11, 12, 13, 14, 15],
-    [16, 17, 18, 19, 20],
-    [21, 22, 23, 24, 25],
+    [1, 2, 3, 4],
+    [6, 7, 8, 9],
+    [11, 12, 13,14],
+    [16, 17, 18, 19],
+    [21, 22, 23, 24],
+    [11, 12, 13,14],
+    [16, 17, 18, 19],
+    [21, 22, 23, 24],
+    [1, 2, 3, 4],
+    [6, 7, 8, 9],
+    [11, 12, 13,14],
+    [16, 17, 18, 19],
+    [21, 22, 23, 24],
+    [11, 12, 13,14],
+    [16, 17, 18, 19],
+    [21, 22, 23, 24]
   ]);
 
   //ALL USEEFFECTS
 
-  useEffect(()=>{
+  useEffect(() => {
     tablenames_fetching_function();
-  },[])
+  }, []);
 
   useEffect(() => {
-    function sliding(){
+    function sliding() {
       var a = document.querySelector(".slidecontainer");
-    var b = document.querySelector(".right");
-    var d = setInterval(e, 2000);
-    // var i=setTimeout(function(){},)
-    b.onclick = function () {
-      a.scrollBy(window.innerWidth - 13.5, 0);
-    };
-    var c = document.querySelector(".left");
-    c.onclick = function () {
-      a.scrollBy(-window.innerWidth + 13.5, 0);
-    };
+      var b = document.querySelector(".right");
+      var s=document.body
+      var d = setInterval(e, 2000);
+      // var i=setTimeout(function(){},)
+      b.onclick = function () {
+        // console.log(window.innerWidth);
+        // console.log(s.offsetWidth - s.clientWidth);
+        a.scrollBy(window.innerWidth, 0);
+      };
+      var c = document.querySelector(".left");
+      c.onclick = function () {
+        a.scrollBy(-window.innerWidth, 0);
+      };
 
-    var f = document.querySelectorAll(".kids");
+      var f = document.querySelectorAll(".kids");
 
-    function e() {
-      var g = f[f.length-1].getBoundingClientRect().left;
-      var h = (5 / 100) * window.innerWidth;
-      // console.log(g,h)
-      if (g > h) {
-        a.scrollBy(window.innerWidth - 13.5, 0);
-       
-      } else if (g < h) {
-        clearInterval(d);
-        a.scrollTo(0, 0);
+      function e() {
+        var g = f[f.length - 1].getBoundingClientRect().left;
+        var h = (5 / 100) * window.innerWidth;
+        // console.log(g,h)
+        if (g > h) {
+          a.scrollBy(window.innerWidth, 0);
+        } else if (g < h) {
+          clearInterval(d);
+          a.scrollTo(0, 0);
+        }
       }
     }
-    }
-    sliding()
+    sliding();
     // return ()=>{
     //   sliding()
     // }
@@ -104,21 +118,21 @@ function A() {
         setfetched_tablenames(response.data);
         var random = [];
         for (let c = 0; c < 6; c += 1) {
-         let b = Math.floor(Math.random() * 41);
+          let b = Math.floor(Math.random() * 41);
           while (random.includes(b)) {
             b = Math.floor(Math.random() * 41);
           }
           random.push(b);
         }
         console.log(random);
-        var slidingElements=[]
-        for (let indexElement of random){
-            slidingElements.push(response.data[indexElement].backgroundimage)
+        var slidingElements = [];
+        for (let indexElement of random) {
+          slidingElements.push(response.data[indexElement].backgroundimage);
         }
-        console.log(slidingElements)
-        setsliders(slidingElements)
+        console.log(slidingElements);
+        setsliders(slidingElements);
         var li = [];
-        async function first5lists() {
+        async function first9lists() {
           var start = low;
           var end = high;
           for (start; start <= end; start++) {
@@ -126,7 +140,7 @@ function A() {
               .post(
                 category_names_url + response.data[start].tablename + ".php",
                 {
-                  tablename:response.data[start].tablename,
+                  tablename: response.data[start].tablename,
                 },
                 {
                   headers: {
@@ -136,16 +150,20 @@ function A() {
               )
               .then((response) => {
                 // console.log(main[start].backgroundimage,response.data);
-                li.push([main[start].backgroundimage,response.data]);
-              }).catch((error)=>{seterror(true);console.log(error)});
+                li.push([main[start].backgroundimage, response.data]);
+              })
+              .catch((error) => {
+                seterror(true);
+                console.log(error);
+              });
           }
           // console.log(li)
           setall([...all, ...li]);
           setload(false);
-          setlow(low + 5);
-          sethigh(high + 5);
+          setlow(low + 9);
+          sethigh(high + 9);
         }
-        first5lists();
+        first9lists();
       })
       .catch((error) => {
         seterror(true);
@@ -188,67 +206,80 @@ function A() {
 
   // ALL NORMAL FUNCTIONS
 
-  const next5lists = () => {
-    if (high + 5 < fetched_tablenames.length - 1) {
+  const next9lists = () => {
+    if (high + 9 < fetched_tablenames.length - 1) {
       fetchingonclicking_function(low, high);
-      setlow(low + 5);
-      sethigh(high + 5);
+      setlow(low + 9);
+      sethigh(high + 9);
       //console.log("ifblock")
     } else if (high == fetched_tablenames.length - 1) {
       fetchingonclicking_function(low, high);
-      sethigh(fetched_tablenames.length + 5);
+      sethigh(fetched_tablenames.length + 9);
       setempty(true);
       // console.log("elseifblock")
     } else if (high + 1 < fetched_tablenames.length - 1) {
       fetchingonclicking_function(low, high);
-      setlow(low + 5);
+      setlow(low + 9);
       sethigh(fetched_tablenames.length - 1);
       // console.log("2ndelseblock")
     }
   };
 
   // MAIN COMPONENT
-  
+
   return (
     <>
-      {!sliders.length?
+      {!sliders.length? (
         <div className="slidecontainer">
-            <button className="left">{Symboll}</button>
-            <div className="kids">1</div>
-            <div className="kids">2</div>
-            <div className="kids">3</div>
-            <div className="kids">4</div>
-            <div className="kids">5</div>
-            <div className="kids">6</div>
-            <button className="right">{Symbolr}</button>
-        </div>:
-        <div className="slidecontainer">
-            <button className="left">{Symboll}</button>
-            {sliders.map((each,index)=>{
-              return (
-                <div className="kids" style={{overflow:"hidden",backgroundImage:`linear-gradient(0deg,rgba(255,255,255),rgba(255,255,255,0.5), rgb(255, 255, 255,0),rgb(255, 255, 255,0)),url(${each})`}} key={index}>
-                    {/* <img src={each} alt="" /> */}
-                </div>
-              )
-            })}
-            <button className="right">{Symbolr}</button>
+          <button className="left">{Symboll}</button>
+          <div className="kids">1</div>
+          <div className="kids">2</div>
+          <div className="kids">3</div>
+          <div className="kids">4</div>
+          <div className="kids">5</div>
+          <div className="kids">6</div>
+          <button className="right">{Symbolr}</button>
         </div>
-      }
+      ) : (
+        <div className="slidecontainer">
+          <button className="left">{Symboll}</button>
+          {sliders.map((each, index) => {
+            return (
+              <div
+                className="kids"
+                style={{
+                  overflow: "hidden",
+                  backgroundImage: `url(${each})`,
+                }}
+                key={index}
+              >
+                {/* <img src={each} alt="" /> */}
+              </div>
+            );
+          })}
+          <button className="right">{Symbolr}</button>
+        </div>
+      )}
 
-      {!error && !all.length ? (
+      {
+      !error && 
+      !
+      all.length? (
         <>
           {/* <h1>loading....</h1> */}
           <div className="skeleton_categorys">
             {skeleton.map((each, index) => {
               return (
+                <div className="skeleton_whole_container" key={index}>
+                    <h2>HI</h2>
                 <div key={index} className="skeleton_products_container">
                   {each.map((item, index) => (
                     <div className="skeleton_product" key={index}>
                       <div className="b" />
                       <div className="imgdiv" src={item} alt="product" />
-                      <div className="h1div">{item}</div>
                     </div>
                   ))}
+                </div>
                 </div>
               );
             })}
@@ -256,36 +287,63 @@ function A() {
         </>
       ) : (
         <>
-          <div className="homepage_categorys" onClick={() => setsearchstate(0)}>
+          <div className="skeleton_categorys" onClick={() => setsearchstate(0)}>
             {all.map((each, i) => {
-              return (
-                <div key={i}>
-                  <h1>{each[1][1].categoryname.toUpperCase()}</h1>
-                  <div
-                    className="homepage_products_container"
-                    style={{
-                      background: `url(${each[0]})`,
-                      backgroundAttachment: "fixed",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  >
-                    {each[1].map((item, index) => (
-                      <Link
-                        to="/item"
-                        key={index}
-                        onClick={() => setproductcategory(item)}
+              if((i+1)%9!=0){
+                return (
+                    <Link to={`/products/${each[1][1].categoryname}`}  className="skeleton_whole_container" key={i} onClick={() => {
+                     
+                      setproductname(each[1][1].categoryname);
+                    }}>
+                      <h2>{each[1][1].categoryname.toUpperCase()}</h2>
+                      <div
+                        className="skeleton_products_container"
+                        style={{background: `url(${each[0]})`,/* backgroundAttachment: "fixed",*/backgroundSize: "cover",backgroundPosition: "center",
+                        }}
                       >
-                        <div className="homepage_product" key={index}>
-                          <img src={item.image} alt="product" />
-                          <h1 className="name">{item.itemname}</h1>
-                          <h1> ₹ {item.price}</h1>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              );
+                        {each[1].map((item, index) => {
+                          if(index<4)
+                          {
+                            return (
+                          <Link className="skeleton_product"
+                            to="/item"
+                            key={index}
+                            onClick={() => setproductcategory(item)}
+                          >
+                              {/* <div className="b" /> */}
+                              <img className="imgdiv" src={item.image} alt="product" />
+                          </Link>)}
+              })}
+                      </div>
+                      <h2>EXCITING OFFERS /-</h2>
+                    </Link>
+                )}else{
+                  return (
+                    <Link to={`/products/${each[1][1].categoryname}`}  className="skeleton_whole_container" key={i} onClick={() => {
+                     
+                      setproductname(each[1][1].categoryname);
+                    }}>
+                      <h2>{each[1][1].categoryname.toUpperCase()}</h2>
+                      <div
+                        className="skeleton_products_container"
+                        style={{background: `url(${each[0]})`, backgroundAttachment: "fixed",backgroundSize: "cover",backgroundPosition: "center",
+                        }}
+                      >
+                        {each[1].map((item, index) => {
+                            return (
+                          <Link className="skeleton_product"
+                            to="/item"
+                            key={index}
+                            onClick={() => setproductcategory(item)}
+                          >
+                              {/* <div className="b" /> */}
+                              <img className="imgdiv" src={item.image} alt="product" />
+                          </Link>)
+              })}
+                      </div>
+                    </Link>
+                )
+                }
             })}
           </div>
         </>
@@ -293,8 +351,11 @@ function A() {
       {!error && !empty && normalload && (
         <h1 className="lastone">loading...</h1>
       )}
+      {!error && empty && normalload && (
+        <h1 className="lastone">loading...</h1>
+      )}
       {!error && !empty && !normalload && !load && (
-        <button className="lastsecond" onClick={next5lists}>
+        <button className="lastsecond" onClick={next9lists}>
           <h1>LOAD MORE</h1>
         </button>
       )}

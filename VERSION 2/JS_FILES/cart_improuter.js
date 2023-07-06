@@ -63,7 +63,7 @@ const CART = () => {
 
   return (
     <>
-      {userdetails.length ? (
+      {userdetails[0].username ? (
        !load?(  cartitems.length ? (
             <div
             className="cartitemsproducts"

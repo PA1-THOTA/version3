@@ -28,6 +28,8 @@ const Header1_imp = () => {
     "https://pavanthota.000webhostapp.com/WEBSITE%20PHP%20FILES/tablenames.php";
   console.log(productname, setproductname);
 
+  // style
+
   // useEffect(() => {
   //   tablenames_fetching_function();
   // }, []);
@@ -85,7 +87,7 @@ const Header1_imp = () => {
               filtered_tablenames.map((each, index) => {
                 return (
                   <Link to={`/products/${each.tablename}`} key={index}>
-                    <button
+                    <button 
                       onClick={() => {
                         searchitemsfunction(each);
                         setproductname(each.tablename);
@@ -150,7 +152,7 @@ const Header1_imp = () => {
         </NavLink>
       </div>
       <div className="header1elementnav header1element4">
-        {!userdetails.length?<NavLink id="link" to="/login">
+        {!userdetails[0].username?<NavLink id="link" to="/login">
           LOGIN
         </NavLink>:<NavLink id="link" to="/logout">
           LOGOUT

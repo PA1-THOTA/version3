@@ -1,13 +1,13 @@
 .header2{
     display: flex;
-    border:2px solid;
-    height: 30px;
+    /* border:2px solid; */
+    height: 40px; 
     box-sizing: border-box;
     align-items: center;
     position: sticky;
     width: 100%;
-    top:50px;
-    background-color: rgb(9, 131, 237);
+    top:70px;
+    background-color: rgb(138, 139, 141);
     z-index: 2;
 }
 
@@ -27,7 +27,11 @@
 .header2element2{
     width:60%;
     height: 80%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
     /* border:2px solid; */
+
 }
 .header2element3{
     width:30%;

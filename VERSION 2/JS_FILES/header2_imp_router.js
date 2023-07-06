@@ -6,7 +6,7 @@ const header2_imp = () => {
     <div className="header2">
     <div className="header2element header2element1"><img src={threelinesicon} alt="" /></div>
     <div className="header2element header2element2">
-    ALL YOU WANT IS HERE
+    <h3>ALL YOU WANT IS HERE</h3>
     </div>
     <div className="header2element header2element3"><img src={user} alt="" /><p>Welcome USER</p> </div>
     

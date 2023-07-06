@@ -40,7 +40,7 @@ const CART = () => {
 
   return (
     <>
-      {userdetails.length ? (
+      {userdetails[0].username ? (
        !load?( orderitems.length ? (
             <div
             className="orderitemsproducts"
