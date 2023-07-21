@@ -8,6 +8,9 @@ function A() {
   var Symboll = "«";
   var Symbolr = "«";
   const {
+    userdetails,
+    setrecentlyvisitedproducts,
+    recentlyvisitedproducts,
     productcategory,
     setproductcategory,
     searchstate,
@@ -15,6 +18,7 @@ function A() {
     setsearchstate,
     fetched_tablenames,
     setfetched_tablenames,
+    recentlyvisited,
   } = useContext(usercontext);
   // const [fetched_tablenames, setfetched_tablenames] = useState([]);
   const [load, setload] = useState(false);
@@ -29,33 +33,57 @@ function A() {
   const [skeleton, setskeleton] = useState([
     [1, 2, 3, 4],
     [6, 7, 8, 9],
-    [11, 12, 13,14],
+    [11, 12, 13, 14],
     [16, 17, 18, 19],
     [21, 22, 23, 24],
-    [11, 12, 13,14],
+    [11, 12, 13, 14],
     [16, 17, 18, 19],
     [21, 22, 23, 24],
     [1, 2, 3, 4],
     [6, 7, 8, 9],
-    [11, 12, 13,14],
+    [11, 12, 13, 14],
     [16, 17, 18, 19],
     [21, 22, 23, 24],
-    [11, 12, 13,14],
+    [11, 12, 13, 14],
     [16, 17, 18, 19],
-    [21, 22, 23, 24]
+    [21, 22, 23, 24],
   ]);
 
   //ALL USEEFFECTS
 
   useEffect(() => {
     tablenames_fetching_function();
+    async function recentlyvisitedfetching() {
+      console.log(userdetails[0].username);
+      console.log(userdetails[0].email);
+      console.log(userdetails[0].password);
+      await axios
+        .post(
+          "https://pavanthota.000webhostapp.com/WEBSITE%20PHP%20FILES/recentlyvisited%20fetching.php",
+          {
+            username: userdetails[0].username,
+            email: userdetails[0].email,
+            password: userdetails[0].password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          setrecentlyvisitedproducts(response.data);
+        });
+    }
+    recentlyvisitedfetching();
   }, []);
 
   useEffect(() => {
     function sliding() {
       var a = document.querySelector(".slidecontainer");
       var b = document.querySelector(".right");
-      var s=document.body
+      var s = document.body;
       var d = setInterval(e, 2000);
       // var i=setTimeout(function(){},)
       b.onclick = function () {
@@ -229,7 +257,7 @@ function A() {
 
   return (
     <>
-      {!sliders.length? (
+      {!sliders.length ? (
         <div className="slidecontainer">
           <button className="left">{Symboll}</button>
           <div className="kids">1</div>
@@ -261,25 +289,22 @@ function A() {
         </div>
       )}
 
-      {
-      !error && 
-      !
-      all.length? (
+      {!error && !all.length ? (
         <>
           {/* <h1>loading....</h1> */}
           <div className="skeleton_categorys">
             {skeleton.map((each, index) => {
               return (
                 <div className="skeleton_whole_container" key={index}>
-                    <h2>HI</h2>
-                <div key={index} className="skeleton_products_container">
-                  {each.map((item, index) => (
-                    <div className="skeleton_product" key={index}>
-                      <div className="b" />
-                      <div className="imgdiv" src={item} alt="product" />
-                    </div>
-                  ))}
-                </div>
+                  <h2>HI</h2>
+                  <div key={index} className="skeleton_products_container">
+                    {each.map((item, index) => (
+                      <div className="skeleton_product" key={index}>
+                        <div className="b" />
+                        <div className="imgdiv" src={item} alt="product" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               );
             })}
@@ -287,63 +312,125 @@ function A() {
         </>
       ) : (
         <>
+          {recentlyvisitedproducts.length?<div className="recently_whole_container">
+            <h2>RECENTLY VISITED</h2>
+            <div className="skeleton_products_container">
+              {recentlyvisitedproducts.map((item, index) => {
+                return (
+                  <Link
+                    className="skeleton_product"
+                    to="/item"
+                    key={index}
+                    onClick={() => setproductcategory(item)}
+                  >
+                    {/* <div className="b" /> */}
+                    <img className="imgdiv" src={item.image} alt="product" />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>:<></>}
           <div className="skeleton_categorys" onClick={() => setsearchstate(0)}>
             {all.map((each, i) => {
-              if((i+1)%9!=0){
+              if ((i + 1) % 9 != 0) {
                 return (
-                    <Link to={`/products/${each[1][1].categoryname}`}  className="skeleton_whole_container" key={i} onClick={() => {
-                     
+                  <Link
+                    to={`/products/${each[1][1].categoryname}`}
+                    className="skeleton_whole_container"
+                    key={i}
+                    onClick={() => {
                       setproductname(each[1][1].categoryname);
-                    }}>
-                      <h2>{each[1][1].categoryname.toUpperCase()}</h2>
-                      <div
-                        className="skeleton_products_container"
-                        style={{background: `url(${each[0]})`,/* backgroundAttachment: "fixed",*/backgroundSize: "cover",backgroundPosition: "center",
-                        }}
-                      >
-                        {each[1].map((item, index) => {
-                          if(index<4)
-                          {
-                            return (
-                          <Link className="skeleton_product"
+                    }}
+                  >
+                    <h2>{each[1][1].categoryname.toUpperCase()}</h2>
+                    <div
+                      className="skeleton_products_container"
+                      style={{
+                        background: `url(${each[0]})`,
+                        /* backgroundAttachment: "fixed",*/ backgroundSize:
+                          "cover",
+                        backgroundPosition: "center",
+                      }}
+                    >
+                      {each[1].map((item, index) => {
+                        if (index < 4) {
+                          return (
+                            <Link
+                              className="skeleton_product"
+                              to="/item"
+                              key={index}
+                              onClick={() => {
+                                setproductcategory(item);
+                                recentlyvisited(
+                                  item.categoryname,
+                                  item.itemname,
+                                  item.price,
+                                  item.image,
+                                  item.des
+                                );
+                              }}
+                            >
+                              {/* <div className="b" /> */}
+                              <img
+                                className="imgdiv"
+                                src={item.image}
+                                alt="product"
+                              />
+                            </Link>
+                          );
+                        }
+                      })}
+                    </div>
+                    <h2>EXCITING OFFERS /-</h2>
+                  </Link>
+                );
+              } else {
+                return (
+                  <Link
+                    to={`/products/${each[1][1].categoryname}`}
+                    className="skeleton_whole_container"
+                    key={i}
+                    onClick={() => {
+                      setproductname(each[1][1].categoryname);
+                    }}
+                  >
+                    <h2>{each[1][1].categoryname.toUpperCase()}</h2>
+                    <div
+                      className="skeleton_products_container"
+                      style={{
+                        background: `url(${each[0]})`,
+                        backgroundAttachment: "fixed",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    >
+                      {each[1].map((item, index) => {
+                        return (
+                          <Link
+                            className="skeleton_product"
                             to="/item"
                             key={index}
-                            onClick={() => setproductcategory(item)}
+                            onClick={() => {setproductcategory(item);recentlyvisited(
+                              item.categoryname,
+                              item.itemname,
+                              item.price,
+                              item.image,
+                              item.des
+                            );}}
                           >
-                              {/* <div className="b" /> */}
-                              <img className="imgdiv" src={item.image} alt="product" />
-                          </Link>)}
-              })}
-                      </div>
-                      <h2>EXCITING OFFERS /-</h2>
-                    </Link>
-                )}else{
-                  return (
-                    <Link to={`/products/${each[1][1].categoryname}`}  className="skeleton_whole_container" key={i} onClick={() => {
-                     
-                      setproductname(each[1][1].categoryname);
-                    }}>
-                      <h2>{each[1][1].categoryname.toUpperCase()}</h2>
-                      <div
-                        className="skeleton_products_container"
-                        style={{background: `url(${each[0]})`, backgroundAttachment: "fixed",backgroundSize: "cover",backgroundPosition: "center",
-                        }}
-                      >
-                        {each[1].map((item, index) => {
-                            return (
-                          <Link className="skeleton_product"
-                            to="/item"
-                            key={index}
-                            onClick={() => setproductcategory(item)}
-                          >
-                              {/* <div className="b" /> */}
-                              <img className="imgdiv" src={item.image} alt="product" />
-                          </Link>)
-              })}
-                      </div>
-                    </Link>
-                )
-                }
+                            {/* <div className="b" /> */}
+                            <img
+                              className="imgdiv"
+                              src={item.image}
+                              alt="product"
+                            />
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </Link>
+                );
+              }
             })}
           </div>
         </>
@@ -351,9 +438,7 @@ function A() {
       {!error && !empty && normalload && (
         <h1 className="lastone">loading...</h1>
       )}
-      {!error && empty && normalload && (
-        <h1 className="lastone">loading...</h1>
-      )}
+      {!error && empty && normalload && <h1 className="lastone">loading...</h1>}
       {!error && !empty && !normalload && !load && (
         <button className="lastsecond" onClick={next9lists}>
           <h1>LOAD MORE</h1>

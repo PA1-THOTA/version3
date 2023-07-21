@@ -1,10 +1,15 @@
-.logout button {
-    
+.logout {
+  position: relative;
+  top: 200px;
 }
-.logout button:hover{
-    border:2px solid red;
-    outline:2px solid red;
-    background-color: black;
-    color: white;
 
-  }
+.logout button {
+  padding: 10px;
+}
+
+.logout button:hover {
+  border: 2px solid red;
+  outline: 2px solid red;
+  background-color: black;
+  color: white;
+}

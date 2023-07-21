@@ -1,58 +1,77 @@
-.cartitemsproducts{
-    /* margin-top: 20px; */
-    display: grid;
-    /* justify-content: space-evenly; */
-    width: 95%;
-    right: 0;
-    row-gap: 50px;
-    justify-items: center;
-    padding: 30px 0px;
-    margin: auto;
-    justify-items: center;
-
+.cartitemsproducts {
+  /* margin-top: 20px; */
+  display: grid;
+  /* justify-content: space-evenly; */
+  width: 95%;
+  right: 0;
+  row-gap: 50px;
+  justify-items: center;
+  padding: 30px 0px;
+  margin: auto;
+  justify-items: center;
+  background-color: rgb(66, 138, 138);
 }
+
+.cartitemsproducts a{
+  color: white;
+}
+
 .cartitemsproducts .name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.cartitemsproducts div {
+  margin: auto;
+  width: 90%;
+  height: 350px;
+  border: 2px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 20px 10px rgb(0, 0, 0);
+  background-color: rgb(40, 18, 119);
+}
+
+.cartitemsproducts div:hover{
+  background-color: rgb(17, 7, 56);
+}
+
+.cartitemsproducts div img {
+  height: 60%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.cartitemsproducts button {
+  width: 90%;
+  height: 30px;
+  margin: 15px auto;
+  background-color: red;
+}
+
+.cartitemsproducts button:hover {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 500px) {
+  .cartitemsproducts {
+    grid-template-columns: 1fr;
+    width: 95%;
+    top: 80px;
   }
-
-  .cartitemsproducts div{
-    margin: auto;
+}
+@media screen and (min-width: 500px) {
+  .cartitemsproducts {
+    grid-template-columns: 1fr 1fr;
+    width: 95%;
   }
-
-.cartitemsproducts button{
-    width:90%;
-    height:30px;
-    margin:15px auto;
-    background-color: red;
 }
 
-.cartitemsproducts button:hover{
-    color:white;
-    background-color: black;
-}
-  
-  
-@media screen and (max-width:500px){
-    .cartitemsproducts{
-        grid-template-columns:1fr;  
-         width:95%;
-         top:80px;
-    }
-}
-@media screen and (min-width:500px){
-    .cartitemsproducts{
-        grid-template-columns:1fr 1fr;   
-        width: 95%;
-    }
-}
-
-@media screen and (min-width:700px){
-    .cartitemsproducts{
-        grid-template-columns:1fr 1fr 1fr;   
-    }
+@media screen and (min-width: 700px) {
+  .cartitemsproducts {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

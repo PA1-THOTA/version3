@@ -13,15 +13,15 @@ padding: 0px 0px 20px;
 .totalcontainer{
 position: relative;
 width:100%;
-top:80px
+
 
 /* border:5px solid red; */
 /* min-height: 200vh; */
 }
 .imagescontainercontainer{
   z-index: 2;
-  position:sticky;
-  top: 80px;
+  /* position:sticky;
+  top: 80px; */
   border: 2px solid;
   background-color: bisque;
 }
@@ -41,7 +41,7 @@ top:80px
   .sideimages {
     width: 25%;
     height: 100%;
-    background-color: brown;
+    background-color: rgb(65, 30, 30);
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -51,7 +51,7 @@ top:80px
   .mainimage {
     width: 75%;
     height: 100%;
-    background-color: aqua;
+    background-color: rgb(61, 108, 108);
     position: absolute;
     right: 0px;
     display: flex;
@@ -136,19 +136,22 @@ top:80px
       min-width:300px;
       width:30%;
       height: 40px;
-      margin:90px auto 20px;
-      border:2px solid
+      margin:20px auto;
+      /* border:2px solid; */
+      
   }
   .itemspage .addtocart{
       min-width:300px;
       width:30%;
       height: 40px;
       margin:0px auto ;
-      border:2px solid
+      /* border:2px solid */
   }
   .itemspage button{
     width: 100%;
     height: 100%;
+    border-radius:30px ;
+    font-weight: bold;
   }
   .itemspage button:hover{
     border:2px solid white;

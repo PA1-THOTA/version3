@@ -6,16 +6,25 @@ const Logout_improuter = () => {
     const {userdetails,setuserdetails}=useContext(usercontext)
     const navigate=useNavigate()
     const logout=()=>{
-        setuserdetails([])
+        setuserdetails([{
+          cityname: "",
+          country: "",
+          email: "",
+          password: "",
+          phonenumber: "",
+          pincode: "",
+          streetname: "",
+          username: "",
+        }])
         navigate("/home")
     }
 
   return (
-    <div className="logout" style={{ position: "relative", top: "200px" }}>
+    <div className="logout">
           <h1>
         ARE YOU SURE YOU WANT TO LOGOUT ?
           </h1>
-          <h2><button onClick={logout} style={{padding:"10px"}}>YES</button></h2>
+          <h2><button onClick={logout}>YES</button></h2>
         </div>
   )
 }

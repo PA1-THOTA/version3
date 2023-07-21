@@ -5,13 +5,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const CART = () => {
-  const { userdetails, setuserdetails,setproductcategory} = useContext(usercontext);
+  const { userdetails, setuserdetails, setproductcategory } =
+    useContext(usercontext);
   const [orderitems, setorderitems] = useState([]);
-  const [load,setload]=useState(false)
+  const [load, setload] = useState(false);
 
   useEffect(() => {
     async function orderitemsfetchingfunction() {
-      setload(true)
+      setload(true);
       console.log("pavan");
       await axios
         .post(
@@ -28,7 +29,7 @@ const CART = () => {
           }
         )
         .then((response) => {
-          setload(false)
+          setload(false);
           console.log(response.data);
           setorderitems(response.data);
         });
@@ -36,58 +37,69 @@ const CART = () => {
     orderitemsfetchingfunction();
   }, []);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   return (
     <>
       {userdetails[0].username ? (
-       !load?( orderitems.length ? (
+        !load ? (
+          orderitems.length ? (
             <div
-            className="orderitemsproducts"
-            style={{
-            //   background: fetchedproducts.length
-            //     ? `url(${filt.backgroundimage})`
-            //     : "",
-            //   backgroundAttachment: "fixed",
-            //   backgroundSize: "cover",
-            }}>
-            {orderitems.map((each, index) => {
-              return (
-                <Link to="/item" key={index} onClick={()=>setproductcategory(each)}>
-                <div
-                  key={index}
+              className="orderitemsproducts"
+              style={
+                {
+                  //   background: fetchedproducts.length
+                  //     ? `url(${filt.backgroundimage})`
+                  //     : "",
+                  //   backgroundAttachment: "fixed",
+                  //   backgroundSize: "cover",
+                }
+              }
+            >
+              {orderitems.map((each, index) => {
+                return (
+                  <div key={index}>
+                  <Link
+                    to="/item"
+                    key={index}
+                    onClick={() => setproductcategory(each)}
+                  >
+                   
+                      <img src={each.image} alt="" />
+                      <h1 className="name">{each.itemname}</h1>
+                      <h1>Price :- ₹ {each.price}</h1>
+                   
+                  </Link>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div
+              className="cart"
+              style={{ position: "relative", top: "200px" }}
+            >
+              <h1>
+                YOU HAVEN'T ORDERED ANYTHING{" "}
+                <span
                   style={{
-                    width: "90%",
-                    height: "300px",
-                    border: "2px solid red",
-                    backgroundColor: "rgb(72, 173, 207)",
-                  }}>
-                  <img
-                    style={{
-                      height: "70%",
-                      width: "100%",
-                      objectFit: "contain",
-                    }}
-                    src={each.image}
-                    alt=""
-                  />
-                     <h1 className="name">{each.itemname}</h1>
-                  <h1>Price :- ₹ {each.price}</h1>
-                </div>
-                </Link>
-              );
-            })}
-          </div>
+                    color: "green",
+                    border: "2px solid",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate("/")}
+                >
+                  EXPLORE
+                </span>
+              </h1>
+            </div>
+          )
+        ) : (
+          <h1 style={{ position: "relative", top: "200px" }}>
+            LOADING . . . .{" "}
+          </h1>
         )
-        : 
-        (
-          <div className="cart" style={{ position: "relative", top: "200px" }}>
-            <h1>YOU HAVEN'T ORDERED ANYTHING <span style={{color:"green",border:"2px solid",cursor:"pointer"}} onClick={()=>navigate("/")}>EXPLORE</span></h1>
-          </div>
-        )
-      ) :<h1 style={{position:"relative",top:"200px"}}>LOADING . . . . </h1>)
-      :
-      (
+      ) : (
         <div style={{ position: "relative", top: "200px" }}>
           <h1>
             <span>

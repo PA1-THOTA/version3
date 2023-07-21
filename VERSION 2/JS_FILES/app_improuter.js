@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./headerimprouter";
-import Home from "./loadmoreimprouter";
+import Home from "./homeimprouter";
 import Product from "./product_improuter";
 import Item from "./itemspage_improuter";
 import Buynow from "./buynowpage_imp_router";

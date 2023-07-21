@@ -15,7 +15,7 @@ import ReactDOM from "react-dom/client";
             import "./VERSION 2/CSS_FILES/common_imp.css";
             import "./VERSION 2/CSS_FILES/header1_imp.css";
             import "./VERSION 2/CSS_FILES/header2_imp.css";
-            import "./VERSION 2/CSS_FILES/loadmore_imp.css";
+            import "./VERSION 2/CSS_FILES/home_imp.css";
             import "./VERSION 2/CSS_FILES/product_imp.css";
             import "./VERSION 2/CSS_FILES/buynowpage_imp.css";
             import "./VERSION 2/CSS_FILES/itemspage_imp.css";

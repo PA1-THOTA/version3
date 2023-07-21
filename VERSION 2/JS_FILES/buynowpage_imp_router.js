@@ -104,12 +104,12 @@ function A() {
     return (
       <div className="paynowcontainer" style={{width:"100%",height:"100vh",position:"fixed",top:"0px",backgroundColor:" rgb(52, 52, 52)"}}>
      
-     <div className="paynow" style={{width:"300px",height:"300px",border:"5px solid black",position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)"}}>
+     <div className="paynow">
          <h1 style={{color:"white"}}>PAY USING</h1>
          <hr />
          <br />
          <h2 style={{color:"white"}}>UPI </h2>
-         <input onChange={(e)=>setupi(e.target.value)} value={upi} type="text" placeholder="ENTER UPI ID"/>
+         <input type="text" placeholder="ENTER UPI ID"/>
          <br />
          <br />
          <button>{cash?<h2 onClick={()=>setcash(!cash)} style={{color:"white",backgroundColor:"green"}}>CASH ON DELIVERY</h2>:<h2 onClick={()=>setcash(!cash)}>CASH ON DELIVERY</h2>}</button>
@@ -123,7 +123,6 @@ function A() {
     </div>
     )
   }
-
 
     return (
       <>

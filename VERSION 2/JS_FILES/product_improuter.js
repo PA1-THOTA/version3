@@ -5,8 +5,13 @@ import { usercontext } from "./usecontext_imp_router";
 import { Link } from "react-router-dom";
 
 const Productrouterimp = () => {
-  const { productname, setproductname, fetched_tablenames ,productcategory,setproductcategory} =
-    useContext(usercontext);
+  const {
+    productname,
+    setproductname,
+    fetched_tablenames,
+    productcategory,
+    setproductcategory,recentlyvisited
+  } = useContext(usercontext);
 
   const { products } = useParams();
   console.log(products);
@@ -104,7 +109,8 @@ const Productrouterimp = () => {
                   key={index}
                   onClick={() =>
                     pricefilterer(array[1], array[array.length - 1])
-                  }>
+                  }
+                >
                   {array[index]}
                 </h2>
                 <hr />
@@ -115,7 +121,8 @@ const Productrouterimp = () => {
               <>
                 <h2
                   onClick={() => pricefilterer(array[index], array[index + 1])}
-                  key={index}>
+                  key={index}
+                >
                   {array[index]}-{array[index + 1]}
                 </h2>
                 <hr />
@@ -128,7 +135,8 @@ const Productrouterimp = () => {
                   onClick={() =>
                     pricefilterer(array[index], array[index] + 1000)
                   }
-                  key={index}>
+                  key={index}
+                >
                   {array[index]}-ABOVE
                 </h2>
                 <hr />
@@ -152,30 +160,27 @@ const Productrouterimp = () => {
                 : "",
               backgroundAttachment: "fixed",
               backgroundSize: "cover",
-            }}>
+            }}
+          >
             {filt.products.map((each, index) => {
               return (
-                <Link to="/item" key={index} onClick={()=>setproductcategory(each)}>
-                <div
+                <Link
+                  to="/item"
                   key={index}
-                  style={{
-                    width: "90%",
-                    height: "300px",
-                    border: "2px solid red",
-                    backgroundColor: "rgb(72, 173, 207)",
-                  }}>
-                  <img
-                    style={{
-                      height: "70%",
-                      width: "100%",
-                      objectFit: "contain",
-                    }}
-                    src={each.image}
-                    alt=""
-                  />
-                     <h1 className="name">{each.itemname}</h1>
-                  <h1>Price :- ₹ {each.price}</h1>
-                </div>
+                  onClick={() => {setproductcategory(each);recentlyvisited(
+                    each.categoryname,
+                    each.itemname,
+                    each.price,
+                    each.image,
+                    each.des
+                  );}}
+                >
+                  <div className="firstdiv" key={index}>
+                    <img src={each.image} alt="" />
+                    <hr />
+                    <h1 className="name">{each.itemname}</h1>
+                    <h1>Price :- ₹ {each.price}</h1>
+                  </div>
                 </Link>
               );
             })}
@@ -186,33 +191,17 @@ const Productrouterimp = () => {
   }
 
   return (
-    <div className="productspage" style={{ position: "relative", top: "80px" }}>
-      {" "}
+    <div className="productspage">
       {load ? (
         <div
           className="loading"
           style={{
-            position: "relative",
-            height: "calc(100vh - 80px)",
-            width: "100%",
             background: `url("https://images.unsplash.com/photo-1580793241553-e9f1cce181af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80")`,
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
-          }}>
-          <h1
-            className="loadingtext"
-            style={{
-              position: "absolute",
-              top: "50%",
-              width: "100%",
-              // left: "50%",
-              transform: "translateY(-50%)",
-              color: "white",
-              backgroundColor:"black",
-              fontSize:"50px"
-            }}>
-            loading...
-          </h1>
+          }}
+        >
+          <h1 className="loadingtext">loading...</h1>
         </div>
       ) : (
         <>

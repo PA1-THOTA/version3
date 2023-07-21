@@ -5,16 +5,16 @@ import axios from "axios";
 import { usercontext } from "./usecontext_imp_router";
 
 // import { NavLink } from 'react-router-dom'
-
 const Header1_imp = () => {
   const {
     productname,
     setproductname,
     fetched_tablenames,
-    setfetched_tablenames,searchstate, setsearchstate,userdetails,setuserdetails
+    setfetched_tablenames,searchstate, setsearchstate,userdetails,setuserdetails,searchhistory
   } = useContext(usercontext);
   const [inputtextfield, setinputtextfield] = useState("");
   const [searchitem, setsearchitem] = useState("");
+  const [historystate,sethistorystate]=useState(0)
   // const [fetched_tablenames, setfetched_tablenames] = useState([]);
   const [filtered_tablenames, setfiltered_tablenames] = useState([]);
   // const [pricesfilter, setpricesfilter] = useState([]);
@@ -23,10 +23,10 @@ const Header1_imp = () => {
   // const [loginstate, setloginstate] = useState(0);
   // const [searchstate, setsearchstate] = useState(0);
   const [load, setload] = useState(false);
-  console.log(userdetails)
+  // console.log(userdetails)
   const tablenames_url =
     "https://pavanthota.000webhostapp.com/WEBSITE%20PHP%20FILES/tablenames.php";
-  console.log(productname, setproductname);
+  // console.log(productname, setproductname);
 
   // style
 
@@ -55,15 +55,22 @@ const Header1_imp = () => {
   //     });
   // }
 
+ 
   const change = (e) => {
-    setinputtextfield(e.target.value.toLowerCase());
+    if(e.target.value.length>0){
+      sethistorystate(0);
+    }else{
+      sethistorystate(1)
+    }
+    {setinputtextfield(e.target.value.toLowerCase());
     var d = fetched_tablenames.filter((each) => {
       return each.tablename.includes(e.target.value.toLowerCase());
     });
-    setfiltered_tablenames(d);
+    setfiltered_tablenames(d);}
   };
 
   const inputclick = (e) => {
+    console.log("it is clicked zyx")
     setinputtextfield(e.target.value);
     setsearchstate(1);
     var d = fetched_tablenames.filter((each) => {
@@ -71,12 +78,60 @@ const Header1_imp = () => {
     });
     setfiltered_tablenames(d);
   };
-
+  // console.log(searchstate)
   const searchitemsfunction = (each) => {
     setsearchitem(each.tablename);
     setsearchstate(0);
     setinputtextfield(each.tablename);
+  }; 
+
+  const searchitemsfunction2 = (each) => {
+    setsearchitem(each);
+    setsearchstate(0);
+    setinputtextfield(each);
+  }; 
+
+  const searchhistoryadding = async (searchhistory) => {
+    if (userdetails[0].username.length != 0) {
+      console.log(searchhistory);
+      await axios
+        .post(
+          "https://pavanthota.000webhostapp.com/WEBSITE%20PHP%20FILES/searchhistory%20adding.php",
+          {
+            username: userdetails[0].username,
+            email: userdetails[0].email,
+            password: userdetails[0].password,
+            searchhistory:searchhistory
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+    }
   };
+   
+  function Searchhistory(){
+    if(searchhistory.length){return (<div className="searchhistory">
+      <button style={{fontWeight:"bold"}}>SEARCH HISTORY</button>
+      {searchhistory.map((each,index)=>{
+        return (
+          <Link to={`/products/${each}`} key={index}>
+            <button 
+              onClick={() => {
+                searchitemsfunction2(each);
+                setproductname(each);
+              }}>{each}
+            </button>
+          </Link>
+        )
+      })}
+    </div>)}
+    else{
+      return <></>
+    }
+  }
 
   function Search() {
     return (
@@ -91,6 +146,7 @@ const Header1_imp = () => {
                       onClick={() => {
                         searchitemsfunction(each);
                         setproductname(each.tablename);
+                        searchhistoryadding(each.tablename)
                       }}>
                       {each.tablename.slice(
                         0,
@@ -126,7 +182,10 @@ const Header1_imp = () => {
           onChange={(e) => change(e)}
           onClick={(e) => {
             inputclick(e);
+            inputtextfield.length?sethistorystate(0):sethistorystate(1)
           }}
+          onBlur={()=>sethistorystate(0)}
+          placeholder="SEARCH HERE"
           // onBlur={()=>{
           // setsearchstate(0)  }}
         />
@@ -144,7 +203,8 @@ const Header1_imp = () => {
         </div>
         <hr />
       </div> */}
-      {searchstate ? <Search /> : <></>}
+      {searchstate ?<Search />: <></>}
+      {historystate?<Searchhistory/>:<></>}
 
       <div className="header1elementnav header1element3">
         <NavLink id="link" to="/home">
