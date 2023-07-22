@@ -46,19 +46,10 @@ const CART = () => {
           orderitems.length ? (
             <div
               className="orderitemsproducts"
-              style={
-                {
-                  //   background: fetchedproducts.length
-                  //     ? `url(${filt.backgroundimage})`
-                  //     : "",
-                  //   backgroundAttachment: "fixed",
-                  //   backgroundSize: "cover",
-                }
-              }
-            >
+           >
               {orderitems.map((each, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} className="carting">
                   <Link
                     to="/item"
                     key={index}
@@ -76,7 +67,7 @@ const CART = () => {
             </div>
           ) : (
             <div
-              className="cart"
+              className="cart carting"
               style={{ position: "relative", top: "200px" }}
             >
               <h1>
@@ -95,12 +86,12 @@ const CART = () => {
             </div>
           )
         ) : (
-          <h1 style={{ position: "relative", top: "200px" }}>
+          <div className="carting"><h1 style={{ position: "relative", top: "200px" }}>
             LOADING . . . .{" "}
-          </h1>
+          </h1></div>
         )
       ) : (
-        <div style={{ position: "relative", top: "200px" }}>
+        <div className="carting" style={{ position: "relative", top: "200px" }}>
           <h1>
             <span>
               <Link to="/login">LOGIN</Link>

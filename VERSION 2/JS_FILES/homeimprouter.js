@@ -20,7 +20,6 @@ function A() {
     setfetched_tablenames,
     recentlyvisited,
   } = useContext(usercontext);
-  // const [fetched_tablenames, setfetched_tablenames] = useState([]);
   const [load, setload] = useState(false);
   const [normalload, setnormalload] = useState(false);
   const [all, setall] = useState([]);
@@ -29,7 +28,6 @@ function A() {
   const [high, sethigh] = useState(8);
   const [error, seterror] = useState("false");
   const [sliders, setsliders] = useState([]);
-  // const [kids,setkids]=useState([1,2,3,4,5,6])
   const [skeleton, setskeleton] = useState([
     [1, 2, 3, 4],
     [6, 7, 8, 9],
@@ -85,10 +83,7 @@ function A() {
       var b = document.querySelector(".right");
       var s = document.body;
       var d = setInterval(e, 2000);
-      // var i=setTimeout(function(){},)
       b.onclick = function () {
-        // console.log(window.innerWidth);
-        // console.log(s.offsetWidth - s.clientWidth);
         a.scrollBy(window.innerWidth, 0);
       };
       var c = document.querySelector(".left");
@@ -101,7 +96,6 @@ function A() {
       function e() {
         var g = f[f.length - 1].getBoundingClientRect().left;
         var h = (5 / 100) * window.innerWidth;
-        // console.log(g,h)
         if (g > h) {
           a.scrollBy(window.innerWidth, 0);
         } else if (g < h) {
@@ -111,9 +105,6 @@ function A() {
       }
     }
     sliding();
-    // return ()=>{
-    //   sliding()
-    // }
   }, [sliders]);
 
   //ALL URLS
@@ -177,7 +168,6 @@ function A() {
                 }
               )
               .then((response) => {
-                // console.log(main[start].backgroundimage,response.data);
                 li.push([main[start].backgroundimage, response.data]);
               })
               .catch((error) => {
@@ -185,7 +175,6 @@ function A() {
                 console.log(error);
               });
           }
-          // console.log(li)
           setall([...all, ...li]);
           setload(false);
           setlow(low + 9);
@@ -201,12 +190,9 @@ function A() {
 
   async function fetchingonclicking_function(low, high) {
     setnormalload(true);
-    // console.log("pavan")
-    // console.log(low,high)
     var li = [];
     var start = low;
     var end = high;
-    // console.log(fetched_tablenames[start].tablename)
     for (start; start <= end; start++) {
       await axios
         .post(
@@ -221,15 +207,12 @@ function A() {
           }
         )
         .then((response) => {
-          //   console.log(response.data);
           li.push([fetched_tablenames[start].backgroundimage, response.data]);
         });
     }
-    // console.log(li)
     setall([...all, ...li]);
     setnormalload(false);
 
-    // console.log("pavan")
   }
 
   // ALL NORMAL FUNCTIONS
@@ -239,33 +222,30 @@ function A() {
       fetchingonclicking_function(low, high);
       setlow(low + 9);
       sethigh(high + 9);
-      //console.log("ifblock")
     } else if (high == fetched_tablenames.length - 1) {
       fetchingonclicking_function(low, high);
       sethigh(fetched_tablenames.length + 9);
       setempty(true);
-      // console.log("elseifblock")
     } else if (high + 1 < fetched_tablenames.length - 1) {
       fetchingonclicking_function(low, high);
       setlow(low + 9);
       sethigh(fetched_tablenames.length - 1);
-      // console.log("2ndelseblock")
     }
   };
 
-  // MAIN COMPONENT
+  // MAIN COMPONENT 
 
   return (
     <>
       {!sliders.length ? (
         <div className="slidecontainer">
           <button className="left">{Symboll}</button>
-          <div className="kids">1</div>
-          <div className="kids">2</div>
-          <div className="kids">3</div>
-          <div className="kids">4</div>
-          <div className="kids">5</div>
-          <div className="kids">6</div>
+          <div className="kids"></div>
+          <div className="kids"></div>
+          <div className="kids"></div>
+          <div className="kids"></div>
+          <div className="kids"></div>
+          <div className="kids"></div>
           <button className="right">{Symbolr}</button>
         </div>
       ) : (
@@ -281,7 +261,6 @@ function A() {
                 }}
                 key={index}
               >
-                {/* <img src={each} alt="" /> */}
               </div>
             );
           })}
@@ -291,12 +270,11 @@ function A() {
 
       {!error && !all.length ? (
         <>
-          {/* <h1>loading....</h1> */}
           <div className="skeleton_categorys">
             {skeleton.map((each, index) => {
               return (
                 <div className="skeleton_whole_container" key={index}>
-                  <h2>HI</h2>
+                  <h2>LOADING...</h2>
                   <div key={index} className="skeleton_products_container">
                     {each.map((item, index) => (
                       <div className="skeleton_product" key={index}>
@@ -323,7 +301,6 @@ function A() {
                     key={index}
                     onClick={() => setproductcategory(item)}
                   >
-                    {/* <div className="b" /> */}
                     <img className="imgdiv" src={item.image} alt="product" />
                   </Link>
                 );
@@ -347,7 +324,7 @@ function A() {
                       className="skeleton_products_container"
                       style={{
                         background: `url(${each[0]})`,
-                        /* backgroundAttachment: "fixed",*/ backgroundSize:
+                        backgroundSize:
                           "cover",
                         backgroundPosition: "center",
                       }}
@@ -370,7 +347,6 @@ function A() {
                                 );
                               }}
                             >
-                              {/* <div className="b" /> */}
                               <img
                                 className="imgdiv"
                                 src={item.image}
@@ -418,7 +394,6 @@ function A() {
                               item.des
                             );}}
                           >
-                            {/* <div className="b" /> */}
                             <img
                               className="imgdiv"
                               src={item.image}

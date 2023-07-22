@@ -3,8 +3,6 @@ import { usercontext } from "./usecontext_imp_router";
 import { useContext } from "react";
 import axios from "axios";
 
-// import CSS FILE FROM CSS_IMP FOLDER
-
 function A() {
   const image = "https://m.media-amazon.com/images/I/61MLj+sfjrL._SX425_.jpg";
   const name =

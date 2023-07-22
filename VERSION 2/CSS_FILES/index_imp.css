@@ -1,6 +1,5 @@
 body{
     text-align: center;
-    /* min-height: 150vh; */
     margin: 0;
     padding: 0;
 }
@@ -12,9 +11,4 @@ body{
 *{
     margin: 0;
     padding: 0;
-}
-
-testing_purpose_only{
-    color:rgb(43, 179, 225);
-    background-attachment: local;
 }

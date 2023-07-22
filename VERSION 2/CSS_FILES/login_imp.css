@@ -61,3 +61,20 @@
   background-color: black;
   color: white;
 }
+
+@media screen and (max-width:400px){
+  .login{
+    font-size: 0.8em;
+  }
+  .login button{
+    font-size: 1em;
+    padding: 5px;
+  }
+  .signin{
+    font-size: 0.8em;
+  }
+  .signin button{
+    font-size: 1em;
+    padding: 5px;
+  }
+}

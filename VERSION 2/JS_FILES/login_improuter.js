@@ -74,7 +74,6 @@ function Login() {
     }
   };
 
-  // console.log(!siginusername)
   const usersinserting = async () => {
     if (!siginusername || !signinemail || !signinpassword) {
       alert("enter required fields");
@@ -105,7 +104,6 @@ function Login() {
         });
     }
   };
-  // console.log(loginstate);
   return !loginstate ? (
     <div className="login">
       <div className="loginhead">
@@ -141,7 +139,7 @@ function Login() {
       <div style={{ top: "30%", position: "relative" }}>
         {!loginloading ? (
           !loginsuccessful ? (
-            <button style={{ cursor: "pointer" }}>
+            <button className="loginbutton" style={{ cursor: "pointer" }}>
               <h1
                 onClick={() => {
                   finduser();

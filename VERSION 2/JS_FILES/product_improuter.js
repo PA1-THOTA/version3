@@ -17,12 +17,9 @@ const Productrouterimp = () => {
   console.log(products);
   const [inputtextfield, setinputtextfield] = useState("");
   const [searchitem, setsearchitem] = useState(productname);
-  // const [fetched_tablenames, setfetched_tablenames] = useState([]);
-  // const [filtered_tablenames, setfiltered_tablenames] = useState([]);
   const [pricesfilter, setpricesfilter] = useState([]);
   const [fetchedproducts, setfetchedproducts] = useState([]);
   const [filt, setfilt] = useState({ backgroundimage: "", products: [] });
-  // const [loginstate, setloginstate] = useState(0);
   const [searchstate, setsearchstate] = useState(0);
   const [load, setload] = useState(false);
 
@@ -61,10 +58,6 @@ const Productrouterimp = () => {
         });
         setfetchedproducts(response.data);
         setload(false);
-
-        // console.log(response.data);
-        // console.log(response.data[20].image);
-
         const pricefilter = [];
         const differentpricelist = n.map((each) => {
           return each.price;
@@ -160,6 +153,7 @@ const Productrouterimp = () => {
                 : "",
               backgroundAttachment: "fixed",
               backgroundSize: "cover",
+              backgroundPosition:"center"
             }}
           >
             {filt.products.map((each, index) => {

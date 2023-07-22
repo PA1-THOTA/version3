@@ -13,3 +13,9 @@
   background-color: black;
   color: white;
 }
+
+@media screen and (max-width:400px) {
+  .logout{
+    font-size: 0.7em;
+  }  
+}

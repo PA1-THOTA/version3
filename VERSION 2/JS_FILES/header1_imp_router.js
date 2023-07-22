@@ -4,7 +4,6 @@ import { NavLink, Link } from "react-router-dom";
 import axios from "axios";
 import { usercontext } from "./usecontext_imp_router";
 
-// import { NavLink } from 'react-router-dom'
 const Header1_imp = () => {
   const {
     productname,
@@ -15,45 +14,12 @@ const Header1_imp = () => {
   const [inputtextfield, setinputtextfield] = useState("");
   const [searchitem, setsearchitem] = useState("");
   const [historystate,sethistorystate]=useState(0)
-  // const [fetched_tablenames, setfetched_tablenames] = useState([]);
   const [filtered_tablenames, setfiltered_tablenames] = useState([]);
-  // const [pricesfilter, setpricesfilter] = useState([]);
-  // const [fetchedproducts, setfetchedproducts] = useState([]);
-  // const [filt, setfilt] = useState({ backgroundimage: "", products: [] });
-  // const [loginstate, setloginstate] = useState(0);
-  // const [searchstate, setsearchstate] = useState(0);
   const [load, setload] = useState(false);
-  // console.log(userdetails)
   const tablenames_url =
     "https://pavanthota.000webhostapp.com/WEBSITE%20PHP%20FILES/tablenames.php";
-  // console.log(productname, setproductname);
 
-  // style
 
-  // useEffect(() => {
-  //   tablenames_fetching_function();
-  // }, []);
-
-  // async function tablenames_fetching_function() {
-  //   setload(true);
-  //   await axios
-  //     .post(
-  //       tablenames_url,
-  //       {
-  //         tablename: "",
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       setload(false);
-  //       console.log(response.data);
-  //       setfetched_tablenames(response.data);
-  //     });
-  // }
 
  
   const change = (e) => {
@@ -78,8 +44,7 @@ const Header1_imp = () => {
     });
     setfiltered_tablenames(d);
   };
-  // console.log(searchstate)
-  const searchitemsfunction = (each) => {
+ const searchitemsfunction = (each) => {
     setsearchitem(each.tablename);
     setsearchstate(0);
     setinputtextfield(each.tablename);
@@ -186,23 +151,8 @@ const Header1_imp = () => {
           }}
           onBlur={()=>sethistorystate(0)}
           placeholder="SEARCH HERE"
-          // onBlur={()=>{
-          // setsearchstate(0)  }}
         />
       </div>
-      {/* <div
-        className="searchfield"
-        style={{
-          position: "fixed",
-          width: "100%",
-          zIndex: "10",
-          backgroundColor: "orange",
-        }}>
-        <div>
-          
-        </div>
-        <hr />
-      </div> */}
       {searchstate ?<Search />: <></>}
       {historystate?<Searchhistory/>:<></>}
 
@@ -230,6 +180,19 @@ const Header1_imp = () => {
       </div>
       <div className="header1element threelines">
         <img src={threelinesicon} alt="" />
+        <div className="dropdown" >
+        {!userdetails[0].username?<NavLink  id="link" to="/login">
+          LOGIN
+        </NavLink>:<NavLink  id="link" to="/logout">
+          LOGOUT
+        </NavLink>}
+        <NavLink  id="link" to="/cart">
+          CART
+        </NavLink>
+        <NavLink  id="link" to="/orders">
+          ORDERS
+        </NavLink>
+        </div>
       </div>
     </div>
   );

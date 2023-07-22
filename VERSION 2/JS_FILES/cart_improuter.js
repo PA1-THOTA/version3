@@ -68,16 +68,7 @@ const CART = () => {
         !load ? (
           cartitems.length ? (
             <div
-              className="cartitemsproducts"
-              style={
-                {
-                  //   background: fetchedproducts.length
-                  //     ? `url(${filt.backgroundimage})`
-                  //     : "",
-                  //   backgroundAttachment: "fixed",
-                  //   backgroundSize: "cover",
-                }
-              }
+              className="cartitemsproducts carting"
             >
               {cartitems.map((each, index) => {
                 return (
@@ -100,7 +91,7 @@ const CART = () => {
             </div>
           ) : (
             <div
-              className="cart"
+              className="cart carting"
               style={{ position: "relative", top: "200px" }}
             >
               <h1>
@@ -119,12 +110,12 @@ const CART = () => {
             </div>
           )
         ) : (
-          <h1 style={{ position: "relative", top: "200px" }}>
+          <div className="carting"><h1 style={{ position: "relative", top: "200px" }}>
             LOADING . . . .{" "}
-          </h1>
+          </h1></div>
         )
       ) : (
-        <div style={{ position: "relative", top: "200px" }}>
+        <div className="carting" style={{ position: "relative", top: "200px" }}>
           <h1>
             <span>
               <Link to="/login">LOGIN</Link>
